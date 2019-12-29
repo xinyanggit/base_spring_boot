@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.base.spring.boot.user.dao.UserDao">
+
+    <resultMap id="userMap" type="java.util.HashMap">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="password" column="PASSWORD" />
+        <result property="pwdUpdateTime" column="pwd_update_time" />
+    </resultMap>
+
+    <sql id="queryCondition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and NAME = #{name}
+            </if>
+            <if test="password != null and password != ''">
+                and PASSWORD = #{password}
+            </if>
+            <if test="username != null and username != ''">
+                and USERNAME = #{username}
+            </if>
+        </where>
+    </sql>
+    <select id="getUserList" parameterType="map" resultMap="userMap">
+        SELECT * FROM user
+        <include refid="queryCondition" />
+        order by create_time desc
+    </select>
+</mapper>
