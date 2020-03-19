@@ -12,11 +12,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
+@Deprecated
 public class MybatisConfig {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Autowired
 	@Qualifier("dataSource")
 	private DataSource dataSource;
