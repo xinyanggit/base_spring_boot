@@ -13,6 +13,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 //@Configuration
+
+/**
+ * 测试返回接口和接口，所以先注释掉
+ * 这个配置，mybatis conf 和mapper 可以在application.properties 中配置
+ */
 @Deprecated
 public class MybatisConfig {
 
