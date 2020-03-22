@@ -1,7 +1,9 @@
 package com.yx.base.spring.boot.rest.service;
 
 import com.yx.base.spring.boot.exception.CustomServiceException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.ServletException;
 import java.util.ArrayList;
@@ -20,6 +22,12 @@ public class RestfulServiceImpl implements  RestfulService {
         // 在这里进行模拟代码出错
         if(num==0){
             throw  new CustomServiceException("id 传参出错误"+num) ;
+        }
+        if(num == 10){
+            throw new NullPointerException("测试使用，抛出异常");
+        }
+        if(num == 11){
+            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
         return  genData(num) ;
     }

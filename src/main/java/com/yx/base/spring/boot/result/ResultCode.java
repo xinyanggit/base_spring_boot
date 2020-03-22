@@ -26,7 +26,13 @@ public enum ResultCode {
     /**
      * 服务器内部错误
      */
-    INTERNAL_SERVER_ERROR(500);
+    INTERNAL_SERVER_ERROR(500),
+    /***
+     * 空指针异常
+     */
+    NULL_POINT(500);
+
+
 
     private final int code;
 

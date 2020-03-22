@@ -61,8 +61,13 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         converters.add(httpMessageConverter);
     }
 
-    // 统一异常处理
-    @Override
+    /**
+     * @link
+     * @param response
+     * @param result
+     */
+    // 统一异常处理 采用注解实现
+   /* @Override
     protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
         exceptionResolvers.add(new HandlerExceptionResolver() {
             //针对异常统一处理
@@ -97,7 +102,7 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
              }
         });
     }
-
+*/
     private void responseResult(HttpServletResponse response, Result result) {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "application/json;charset=UTF-8");
