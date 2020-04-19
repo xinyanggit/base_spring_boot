@@ -3,7 +3,11 @@ package com.yx.base.spring.boot.rest.controller;
 import com.yx.base.spring.boot.rest.service.RestfulService;
 import com.yx.base.spring.boot.result.Result;
 import com.yx.base.spring.boot.result.ResultGenerator;
+import com.yx.base.spring.boot.vo.UserCustomDTO;
+import com.yx.base.spring.boot.vo.UserDTO;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,4 +37,17 @@ public class RestfulController {
         List list =  restfulService.listData(id) ;
         return ResultGenerator.genSuccessResult(list);
     }
+
+    @RequestMapping("/user/save")
+    public Result saveUser(@RequestBody @Validated UserDTO userDTO ){
+        UserDTO userDTORes = restfulService.saveUser(userDTO);
+        return ResultGenerator.genSuccessResult(userDTORes);
+    }
+
+    @RequestMapping("/user/custom_save")
+    public Result customSaveUser(@RequestBody @Validated UserCustomDTO userDTO ){
+        return ResultGenerator.genSuccessResult(userDTO);
+    }
+
+
 }

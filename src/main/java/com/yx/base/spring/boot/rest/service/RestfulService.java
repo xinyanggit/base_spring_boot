@@ -1,5 +1,7 @@
 package com.yx.base.spring.boot.rest.service;
 
+import com.yx.base.spring.boot.vo.UserDTO;
+
 import java.util.List;
 
 /**
@@ -9,4 +11,6 @@ import java.util.List;
 public interface RestfulService {
 
     public List listData(int id);
+
+    UserDTO saveUser(UserDTO userDTO);
 }

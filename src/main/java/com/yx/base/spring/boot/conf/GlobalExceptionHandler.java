@@ -4,20 +4,24 @@ import com.yx.base.spring.boot.exception.CustomServiceException;
 import com.yx.base.spring.boot.result.Result;
 import com.yx.base.spring.boot.result.ResultCode;
 import com.yx.base.spring.boot.result.ResultGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 基于注解的全局异常处理
+ * 基于注解的    全局异常处理
  * @author yx start
  * @create 2020/3/22,14:28
  */
-@ControllerAdvice
+@Slf4j
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     //总 针对统一异常处理
@@ -54,5 +58,16 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("msg", ex.getMessage());
         return modelAndView;
     }
+
+    /**
+     * MethodArgumentNotValidException是springBoot中进行绑定参数校验时的异常,需要在springBoot中处理
+     * 方法参数 校验
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result  handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error(e.getMessage(), e);
+        return ResultGenerator.genFailResult(e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
 
 }

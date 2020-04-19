@@ -1,6 +1,8 @@
 package com.yx.base.spring.boot.rest.service;
 
 import com.yx.base.spring.boot.exception.CustomServiceException;
+import com.yx.base.spring.boot.vo.UserDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
@@ -15,6 +17,7 @@ import java.util.Map;
  * @author yx start
  * @create 2020/3/22,14:00
  */
+@Slf4j
 @Service
 public class RestfulServiceImpl implements  RestfulService {
     @Override
@@ -30,6 +33,12 @@ public class RestfulServiceImpl implements  RestfulService {
             throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR) ;
         }
         return  genData(num) ;
+    }
+
+    @Override
+    public UserDTO saveUser(UserDTO userDTO) {
+        log.info("保存数据成功==>{}",userDTO);
+        return userDTO;
     }
 
     private List genData(int num ){
