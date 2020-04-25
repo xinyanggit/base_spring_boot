@@ -23,7 +23,7 @@
         <!-- springboot 网页版本 和监控 一起出现 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--监控 和 start-web 一起出现-->
         <dependency>
@@ -37,11 +37,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        <!-- 引入mybatis-plus 后就不需要引入mybatis -->
+     <!--   <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.1</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -116,6 +117,15 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- 引入 mybaits-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+
+
 
     </dependencies>
 

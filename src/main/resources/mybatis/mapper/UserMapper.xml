@@ -28,6 +28,6 @@
     <select id="getUserList" parameterType="map" resultMap="userMap">
         SELECT * FROM user
         <include refid="queryCondition" />
-        order by create_time desc
+         order by create_time desc
     </select>
 </mapper>

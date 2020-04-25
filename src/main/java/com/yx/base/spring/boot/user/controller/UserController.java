@@ -4,16 +4,18 @@ import com.yx.base.spring.boot.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author yx start
  * @create 2019/12/29,13:02
  */
-//@RestController
-@Controller
+@RestController
+//@Controller
 public class UserController {
 
     @Autowired
@@ -25,6 +27,11 @@ public class UserController {
         modelAndView.addObject("userlist",userService.getUserList());
         modelAndView.setViewName("userlist");
         return   modelAndView;
+    }
+
+    @RequestMapping("/user/list2")
+    public List getUserList2(HttpServletRequest request){
+        return userService.getUserList();
     }
 
 
