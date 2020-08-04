@@ -169,7 +169,7 @@
     <!-- 4.1 开发环境:打印控制台-->
     <springProfile name="dev">
         <logger name="com.company" level="info"/>
-        <root level="info">
+        <root level="debug">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
             <appender-ref ref="INFO_FILE" />

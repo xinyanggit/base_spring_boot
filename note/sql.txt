@@ -1,0 +1,23 @@
+CREATE TABLE `user_basic_info` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_id` bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
+  `user_account` varchar(20) DEFAULT NULL COMMENT '用户账号',
+  `user_name` varchar(20) NOT NULL COMMENT '用户姓名',
+  `user_detail_snapshot` varchar(500) DEFAULT NULL COMMENT '用户信息快照',
+  `in_or_out_number` varchar(16) NOT NULL COMMENT '来电/去电号码',
+  `order_number` bigint(20) unsigned NOT NULL COMMENT '工单编号',
+  `phone_number1` varchar(16) DEFAULT NULL COMMENT '手机号码1',
+  `phone_number2` varchar(16) DEFAULT NULL COMMENT '手机号码2',
+  `user_identity` tinyint(2) DEFAULT NULL COMMENT '用户身份 1:未知; 2:个人或家庭; 3:企业采购; 4:电商平台; 5:微商;  6:贸易商;  7:加工厂; 8:餐饮/食堂/酒楼;  9:门店/超市;  10:批发商; 11:代办; 12:种养户',
+  `wechat_or_qq` varchar(20) DEFAULT NULL COMMENT '微信/QQ',
+  `urgency` tinyint(1) unsigned DEFAULT NULL COMMENT '紧急程度 1:特急; 2:紧急; 3:一般',
+  `user_info_remark` varchar(200) DEFAULT NULL COMMENT '用户信息备注',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `create_user` varchar(20) NOT NULL COMMENT '创建人',
+  `modify_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  `update_user` varchar(20) NOT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`),
+  KEY `index_basic_user_id` (`user_id`),
+  KEY `index_basic_user_account` (`user_account`),
+  KEY `index_basic_order_number` (`order_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COMMENT='用户基本信息';

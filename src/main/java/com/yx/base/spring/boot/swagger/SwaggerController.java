@@ -33,7 +33,7 @@ public class SwaggerController {
 
     @GetMapping("/getNum")
     @ApiOperation(value = "获取随机数")
-    @ApiImplicitParam(name = "num", value = "获取随机数", required = true, paramType = "query", defaultValue = "10",dataType="int")
+    @ApiImplicitParam(name = "num", value = "获取随机数", required = true, paramType = "query", defaultValue = "10")
     public Result<List<String>> findPerson(@RequestParam("num") Integer num) {
         return ResultGenerator.genSuccessResult(randomGenStr(num));
     }
