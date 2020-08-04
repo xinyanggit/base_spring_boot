@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Result error(Exception e, HttpServletRequest  request){
+       log.info(e.getMessage());
         return ResultGenerator.genFailResult("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员")
                 .setCode(ResultCode.INTERNAL_SERVER_ERROR);
     }

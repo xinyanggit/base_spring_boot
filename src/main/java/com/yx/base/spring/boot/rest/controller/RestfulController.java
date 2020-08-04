@@ -5,11 +5,9 @@ import com.yx.base.spring.boot.result.Result;
 import com.yx.base.spring.boot.result.ResultGenerator;
 import com.yx.base.spring.boot.vo.UserCustomDTO;
 import com.yx.base.spring.boot.vo.UserDTO;
+import io.swagger.annotations.Tag;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -32,19 +30,19 @@ public class RestfulController {
      * @param id
      * @return
      */
-    @RequestMapping("/list/{id}")
+    @GetMapping("/list/{id}")
     public Result listData(@PathVariable(name="id") int id ){
         List list =  restfulService.listData(id) ;
         return ResultGenerator.genSuccessResult(list);
     }
 
-    @RequestMapping("/user/save")
+    @PostMapping("/user/save")
     public Result saveUser(@RequestBody @Validated UserDTO userDTO ){
         UserDTO userDTORes = restfulService.saveUser(userDTO);
         return ResultGenerator.genSuccessResult(userDTORes);
     }
 
-    @RequestMapping("/user/custom_save")
+    @PostMapping("/user/custom_save")
     public Result customSaveUser(@RequestBody @Validated UserCustomDTO userDTO ){
         return ResultGenerator.genSuccessResult(userDTO);
     }
