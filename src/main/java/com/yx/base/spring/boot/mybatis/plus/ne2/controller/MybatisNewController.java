@@ -1,13 +1,11 @@
 package com.yx.base.spring.boot.mybatis.plus.ne2.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.yx.base.spring.boot.mybatis.plus.ne2.dto.UserBasicRequest;
-import com.yx.base.spring.boot.mybatis.plus.ne2.model.UserBasicInfo;
 import com.yx.base.spring.boot.mybatis.plus.ne2.service.MybatisNewService;
 import com.yx.base.spring.boot.result.Result;
 import com.yx.base.spring.boot.result.ResultGenerator;
+import com.yx.base.spring.boot.user.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.Condition;
 
 /**
  * @author yx start
@@ -70,7 +67,7 @@ public class MybatisNewController {
     @PostMapping("/mulConditionSelect")
     @Order(3)
     @ApiOperation("多条件查询")
-    public Result<?> mulConditionSelect( @RequestBody UserBasicRequest userBasicRequest) {
+    public Result<?> mulConditionSelect(@RequestBody UserBasicRequest userBasicRequest) {
         int count = mybatisNewService.count();
         log.info(String.valueOf(count));
         return null;
@@ -79,9 +76,9 @@ public class MybatisNewController {
     @PostMapping("/rangeSelect")
     @Order(4)
     @ApiOperation("范围查询")
-    public Result<?> rangeSelect(@RequestBody UserBasicRequest userBasicRequest) {
-         List<UserBasicInfo> list = mybatisNewService.list( Wrappers.<UserBasicInfo>query().lambda().gt(Optional.ofNullable(userBasicRequest.getStartTime()).isPresent(),UserBasicInfo::getCreateTime, userBasicRequest.getStartTime())
-                 .lt(UserBasicInfo::getCreateTime, userBasicRequest.getEndTime()).like(UserBasicInfo::getUserName, userBasicRequest.getUserName()));
+    public Result<List<User>> rangeSelect(@RequestBody UserBasicRequest userBasicRequest) {
+        List<User> list = mybatisNewService.list(Wrappers.<User>query().lambda().gt(Optional.ofNullable(userBasicRequest.getStartTime()).isPresent(), User::getCreateTime, userBasicRequest.getStartTime())
+                .lt(User::getCreateTime, userBasicRequest.getEndTime()).like(User::getName, userBasicRequest.getUserName()));
         return ResultGenerator.genSuccessResult(list);
     }
 

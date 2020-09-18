@@ -1,4 +1,4 @@
-package com.yx.base.spring.boot.search;
+package com.yx.base.spring.boot.es.search;
 
 /**
  * @author yangxin2@cnhnkj.com

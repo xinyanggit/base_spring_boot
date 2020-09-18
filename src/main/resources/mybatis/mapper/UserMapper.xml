@@ -6,22 +6,22 @@
         <id property="id" column="ID" />
         <result property="name" column="NAME" />
         <result property="password" column="PASSWORD" />
-        <result property="pwdUpdateTime" column="pwd_update_time" />
+        <result property="updateTime" column="update_time" />
     </resultMap>
 
     <sql id="queryCondition">
         <where>
             <if test="id != null and id != ''">
-                and ID = #{id}
+                and id = #{id}
             </if>
             <if test="name != null and name != ''">
-                and NAME = #{name}
+                and name = #{name}
             </if>
             <if test="password != null and password != ''">
-                and PASSWORD = #{password}
+                and  password = #{password}
             </if>
             <if test="username != null and username != ''">
-                and USERNAME = #{username}
+                and name = #{username}
             </if>
         </where>
     </sql>

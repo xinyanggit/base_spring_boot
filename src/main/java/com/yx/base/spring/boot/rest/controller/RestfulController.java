@@ -5,15 +5,11 @@ import com.yx.base.spring.boot.result.Result;
 import com.yx.base.spring.boot.result.ResultGenerator;
 import com.yx.base.spring.boot.vo.UserCustomDTO;
 import com.yx.base.spring.boot.vo.UserDTO;
-import io.swagger.annotations.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**对外提供接口类
  * @author yx start

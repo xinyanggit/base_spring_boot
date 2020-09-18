@@ -1,7 +1,7 @@
 package com.yx.base.spring.boot.mybatis.plus.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yx.base.spring.boot.mybatis.plus.UserVo;
+import com.yx.base.spring.boot.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @create 2020/4/25,22:57
  */
 @Mapper
-public interface UserMapper extends BaseMapper<UserVo> {
+public interface UserMapper extends BaseMapper<User> {
 }
