@@ -1,0 +1,477 @@
+## 将ik压缩包放入到plugins中 重启即可
+## ik 提供两种ik_smart一次  ik_max_word 分词多次
+GET _analyze
+{
+  "analyzer": "ik_smart",
+  "text":"北京时间9月17日，是一台长在云上的电脑"
+}
+
+GET _analyze
+{
+  "analyzer": "ik_smart",
+  "text":"北京时间,杨新最厉害"
+}
+
+
+GET _analyze
+{
+  "analyzer": "ik_max_word",
+  "text":"北京时间,杨新最厉害"
+}
+
+GET _analyze
+{
+  "analyzer": "ik_smart",
+  "text":"水果总计"
+}
+
+
+
+
+PUT /abc
+{
+  "name":"杨新测试1",
+  "age":26
+}
+
+PUT /yangxin/user2/1
+{
+  "name":"杨新",
+  "age":26,
+  "desc":"厉害咯，要加油咯",
+  "tags":["爱倒腾","就是干"]
+}
+# 查询用户
+POST /yangxin/user2/_search
+{
+
+}
+
+# 索引名称/类型名称/id
+PUT /mall/goods/1
+{
+   "name":"苹果",
+   "desc":"保健康",
+   "price":11
+}
+PUT /mall/goods/2
+{
+   "name":"梨子",
+   "desc":"清火",
+   "price":12
+}
+
+PUT /mall/goods/3
+{
+   "name":"火龙果",
+   "desc":"看着不错",
+   "price":13
+}
+
+PUT /mall/goods/4
+{
+   "name":"香蕉",
+   "desc":"贼好吃",
+   "price":14
+}
+PUT /mall/goods/5
+{
+   "name":"葡萄",
+   "desc":"葡萄真甜",
+   "price":15
+}
+PUT /mall/goods/6
+{
+   "name":"龙源",
+   "desc":"龙源好地方",
+   "price":16
+}
+PUT /mall/goods/7
+{
+   "name":"深圳",
+   "desc":"深圳大大有",
+   "price":17
+}
+
+
+
+# 更新数据-操作1
+PUT /mall/goods/3
+{
+   "name":"水果",
+   "desc":"更新数据"
+}
+##   "_version" : 2, 返回结果有新增， 锁
+
+# 更新数据-操作2  POST _update（推荐）
+POST /mall/goods/4/_update
+{
+  "doc":{
+     "desc":"更新数据2"
+  }
+}
+
+
+## PUT 和POST 更新数据 区别 ，如果PUT 方式不设置值，就回被置空，POSt _update 更新只会更新相关字段
+
+# 查询所有
+GET /mall/goods/_search
+{
+
+}
+
+# 获取数据 id 获取值
+GET  mall/goods/2
+
+# 查询 带条件
+GET mall/goods/_search?q=name:水果总计
+
+# 复杂查询 排序、分页 、高亮、 精准、 模糊查询
+
+# _score 得分权重 进行排序
+# 查的参数体 使用json构建
+#  "_source" 只查询的字段,需要字段
+GET mall/goods/_search
+{
+  "query": {
+    "match": {
+      "name": "水果总计"
+    }
+  },
+  "_source": "name",
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+## 分页查询 from 从第第几个开始   size  返回多少数据
+GET mall/goods/_search
+{
+  "query": {
+    "match": {
+      "name": "水果总计"
+    }
+  },
+  "_source": "name",
+  "sort": [
+    {
+      "price": {
+        "order": "desc"
+      }
+    }
+  ],
+  "from": 0,
+  "size": 10
+}
+
+## 布尔查询
+## must   ===> and
+GET mall/goods/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "name": "水果"
+          }
+        },
+        {
+          "match": {
+            "price": 13
+          }
+        }
+
+
+      ]
+    }
+  }
+}
+
+## should ==> or
+GET mall/goods/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "name": "水果"
+          }
+        },
+        {
+          "match": {
+            "price": 12
+          }
+        }
+
+
+      ]
+    }
+  }
+}
+
+## must_not ==> not 操作
+GET mall/goods/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        {
+          "match": {
+            "name": "水果"
+          }
+        },
+        {
+          "match": {
+            "price": 12
+          }
+        }
+
+      ]
+    }
+  }
+}
+## 过滤器filter gte>=  lte <=
+GET mall/goods/_search
+{
+  "query": {
+    "bool": {
+     "must": [
+       {
+         "match": {
+           "name": "水果"
+         }
+       }
+     ],
+     "filter": {
+       "range": {
+         "price": {
+           "gte": 11,
+           "lte": 13
+         }
+       }
+     }
+    }
+  }
+}
+
+## 匹配多个条件
+GET mall/goods/_search
+{
+  "query": {
+    "match": {
+      "name": "果"
+    }
+  }
+}
+
+
+# 精确查询   ==> term 精确查询
+# match ==> 会使用分词解析器解析
+# 两个类型 text 会被解析  keyword 不会被分词解析
+
+#  科普小知识 不会被解析
+GET _analyze
+{
+  "analyzer": "keyword",
+  "text":"张三真厉害keyword"
+}
+
+#  一般分词器  document 文档会被拆开
+GET _analyze
+{
+  "analyzer": "standard",
+  "text":"张三真厉害keyword"
+}
+# 创建库
+PUT testyx
+{
+  "mappings": {
+    "properties": {
+      "name":{
+        "type": "text"
+      },
+      "desc":{
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+## 插入数据
+PUT testyx/_doc/1
+{
+  "name":"张三真厉害text",
+  "desc":"张三真厉害keyword"
+}
+PUT testyx/_doc/2
+{
+  "name":"李四真厉害text",
+  "desc":"李四真厉害keyword"
+}
+
+## 开始测试字段 ， keyword 类型全匹配才能查出数据
+GET testyx/_doc/_search
+{
+  "query":{
+    "term":{
+      "desc":"李四真厉害keyword"
+    }
+  }
+}
+# keyword 类型字段不会被分词器解析  text 会走分词
+GET testyx/_search
+{
+  "query":{
+    "term":{
+      "name":"王"
+    }
+  }
+}
+
+PUT testyx/_doc/3
+{
+  "name":"王五真厉害text",
+  "desc":"王五真厉害keyword"
+}
+PUT testyx/_doc/4
+{
+  "name":"狗六真厉害text",
+  "desc":"狗六真厉害keyword"
+}
+
+#term 精确解析 ， 会遇到分词器， keyword 不会分词 ，text 会被分词
+GET testyx/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {"term": {
+           "name":"王"
+          }
+        },
+        {"term": {
+          "desc":  "王五真厉害keyord"
+        }
+        }
+      ]
+    }
+  }
+}
+
+GET testyx/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match": {
+          "name": "王"
+        }
+        },{
+          "term": {
+            "name": "王"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET  mall/goods/_search
+
+# 高亮查询 默认添加<em>
+GET  mall/goods/_search
+{
+  "query": {
+    "match": {
+      "name": "深圳"
+    }
+  },
+  "highlight": {
+    "fields": {
+      "name":{}
+    }
+  }
+}
+# 高亮查询  pre_tags  post_tags修改<em>
+GET  mall/goods/_search
+{
+  "query": {
+    "match": {
+      "name": ""
+    }
+  },
+  "highlight": {
+    "pre_tags": "<p class='key' style='color:red'>",
+    "post_tags": "</p>",
+    "fields": {
+      "name":{}
+    }
+  }
+}
+
+DELETE yang_xin_java_new
+
+
+GET yang_xin_java_new/_search
+{
+
+}
+
+POST yang_xin_java_new/_doc/3/
+{
+ "name":"第3条",
+ "password":"密码学习3"
+}
+
+# 删除
+DELETE yang_xin_java_new/_doc/3
+{
+
+}
+# 搜索数据  会被分词
+GET yang_xin_java_new/_search
+{
+  "query": {
+    "term": {
+      "name": "张"
+    }
+  }
+}
+
+GET _analyze
+{
+  "analyzer": "standard",
+  "text":"张三1"
+}
+
+GET jd_good/_search
+{
+  "query": {
+    "term": {
+      "title":"vue"
+    }
+  }
+}
+
+# 高亮查询  pre_tags  post_tags修改<em>
+GET  jd_good/_search
+{
+  "query": {
+    "match": {
+      "title": "java"
+    }
+  },
+  "highlight": {
+    "pre_tags": "<p class='key' style='color:red'>",
+    "post_tags": "</p>",
+    "fields": {
+      "title":{}
+    }
+  }
+}
+

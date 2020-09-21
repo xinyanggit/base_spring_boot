@@ -9,3 +9,5 @@
  对springboot 统一结果封装返回，异常信息进行统一封装返回。具体内容可以查看[2020-03-21.md](https://github.com/xinyanggit/base_spring_boot/blob/master/note/2020-03-21.md "2020-03-21.md")
 
 >2020-03-22更新基于注解的异常拦截处理 [2020-03-22.md](https://github.com/xinyanggit/base_spring_boot/tree/anno_exception/note "2020-03-22.md")
+
+>2020-09-21 添加elasticSearch 接口查看com.yx.base.spring.boot.jd 下面。可以通过http://localhost:8084/swagger-ui.html#/data-controller/searchHighlighterPageUsingGET 查看

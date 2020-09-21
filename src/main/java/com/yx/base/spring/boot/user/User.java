@@ -2,7 +2,7 @@ package com.yx.base.spring.boot.user;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
  * @create 2020-09-18 15:56
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("user")
+@ToString
 public class User {
 
     @TableId
@@ -24,7 +28,7 @@ public class User {
     private String password;
 
     private Integer version;
+
     private LocalDateTime updateTime;
-    
     private LocalDateTime createTime;
 }
