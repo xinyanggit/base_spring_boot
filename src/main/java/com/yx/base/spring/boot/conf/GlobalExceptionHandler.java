@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 基于注解的    全局异常处理
+ *
  * @author yx start
  * @create 2020/3/22,14:28
  */
@@ -27,8 +28,9 @@ public class GlobalExceptionHandler {
     //总 针对统一异常处理
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Result error(Exception e, HttpServletRequest  request){
-       log.info(e.getMessage());
+    public Result error(Exception e, HttpServletRequest request) {
+        e.printStackTrace();
+        log.info(e.getMessage());
         return ResultGenerator.genFailResult("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员")
                 .setCode(ResultCode.INTERNAL_SERVER_ERROR);
     }
@@ -36,7 +38,7 @@ public class GlobalExceptionHandler {
     //分1 针对处理NPE
     @ExceptionHandler(NullPointerException.class)
     @ResponseBody
-    public Result error(NullPointerException e ){
+    public Result error(NullPointerException e) {
         e.printStackTrace();
         return ResultGenerator.genFailResult(e.getMessage());
     }
@@ -44,7 +46,7 @@ public class GlobalExceptionHandler {
     //分2 处理我们自定义的异常 CustomServiceException
     @ExceptionHandler(CustomServiceException.class)
     @ResponseBody
-    public Result error(CustomServiceException e ){
+    public Result error(CustomServiceException e) {
         e.printStackTrace();
         return ResultGenerator.genFailResult(e.getMessage());
     }
@@ -65,7 +67,7 @@ public class GlobalExceptionHandler {
      * 方法参数 校验
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result  handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         return ResultGenerator.genFailResult(e.getBindingResult().getFieldError().getDefaultMessage());
     }
