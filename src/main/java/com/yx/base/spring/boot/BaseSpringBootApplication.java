@@ -2,6 +2,7 @@ package com.yx.base.spring.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableAsync(proxyTargetClass = true) //proxyTargetClass= true =>DefaultAopProxyFactory 对应，采用cglib 代理 createAopProxy
+@EnableKafka
 public class BaseSpringBootApplication {
 
     public static void main(String[] args) {
